@@ -5,6 +5,18 @@ import requests
 import base64
 from openai import OpenAI
 import os
+
+# CSS 스타일 정의
+st.markdown("""
+    <style>
+    .css-2trqyj {
+        font-size: 14px; /* 글자 크기 조정 */
+        font-family: Arial, sans-serif; /* 폰트 변경 */
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+
 OpenAI.api_key=st.secrets['OPENAI_API_KEY']
 
 client = OpenAI()
