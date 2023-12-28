@@ -1,50 +1,93 @@
-# Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022)
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import streamlit as st
-from streamlit.logger import get_logger
+from io import BytesIO
+from PIL import Image as PILImage
+import requests
+import base64
+from openai import OpenAI
+import os
+OpenAI.api_key=st.secrets['OPENAI_API_KEY']
 
-LOGGER = get_logger(__name__)
+client = OpenAI()
+
+def generate_image(prompt, model, size, quality, style, num_images=1):
+    try:
+        # response = client.images.generate(
+        #     model="dall-e-3",
+        #     prompt=prompt,
+        #     size="1792x1024",
+        #     quality="hd",
+        #     n=num_images,
+        #     style="natural"
+        # )
+        response = client.images.generate(
+            model=model,
+            prompt=prompt,
+            size=size,
+            quality=quality,
+            n=num_images,
+            style=style
+        )        
+        image_url = response.data[0].url
+        response = requests.get(image_url)
+
+        if response.status_code == 200:
+            image = PILImage.open(BytesIO(response.content))
+            return image
+        else:
+            st.error("Failed to download the image.")
+            return None
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
+        return None
+
+def get_image_download_link(img, filename="generated_image.png", text="Download Image"):
+    buffered = BytesIO()
+    img.save(buffered, format="PNG")
+    img_str = base64.b64encode(buffered.getvalue()).decode()
+    href = f'<a href="data:image/png;base64,{img_str}" download="{filename}">{text}</a>'
+    return href
+
+# Initialize or get the session state for storing inputs and images
+if 'inputs' not in st.session_state:
+    st.session_state.inputs = []
+if 'images' not in st.session_state:
+    st.session_state.images = []
+# Text area for new input
 
 
-def run():
-    st.set_page_config(
-        page_title="Hello",
-        page_icon="👋",
-    )
-    st.write("# Welcome to Streamlit! 👋")
+# Model selection
+model = st.sidebar.selectbox("Model", ["dall-e-3"], index=0)
 
-    st.sidebar.success("Select a demo above.")
-
-    st.markdown(
-        """
-        Streamlit is an open-source app framework built specifically for
-        Machine Learning and Data Science projects.
-        **👈 Select a demo from the sidebar** to see some examples
-        of what Streamlit can do!
-        ### Want to learn more?
-        - Check out [streamlit.io](https://streamlit.io)
-        - Jump into our [documentation](https://docs.streamlit.io)
-        - Ask a question in our [community
-          forums](https://discuss.streamlit.io)
-        ### See more complex demos
-        - Use a neural net to [analyze the Udacity Self-driving Car Image
-          Dataset](https://github.com/streamlit/demo-self-driving)
-        - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
-    """
-    )
+# Style selection
+# Mapping Korean options to English values
+style_options = {"자연스러운": "natural", "생생한": "vivid"}
+quality_options = {"표준": "standard", "HD": "hd"}
+size_options = {"1024x1024": "1024x1024", "1792x1024": "1792x1024", "1024x1792": "1024x1792"}
 
 
-if __name__ == "__main__":
-    run()
+# Style selection
+selected_style = st.sidebar.selectbox("스타일", list(style_options.keys()))
+style = style_options[selected_style]
+
+# Quality selection
+selected_quality = st.sidebar.selectbox("품질", list(quality_options.keys()))
+quality = quality_options[selected_quality]
+
+# Size selection
+selected_size = st.sidebar.selectbox("크기", list(size_options.keys()))
+size = size_options[selected_size]
+
+new_input = st.text_area("Enter your image description here:")
+
+if st.button('Generate Image'):
+    st.session_state.inputs.append(new_input)
+    with st.spinner('Generating image...'):
+        generated_image = generate_image(new_input,model,size,quality,style)
+        if generated_image:
+            st.session_state.images.append(generated_image)
+
+# Display all the generated images and their download links
+for idx, (inp, img) in enumerate(zip(st.session_state.inputs, st.session_state.images)):
+    st.text(f"Input {idx+1}: {inp}")
+    st.image(img, caption=f'Generated Image {idx+1}')
+    st.markdown(get_image_download_link(img), unsafe_allow_html=True)
