@@ -11,14 +11,6 @@ client = OpenAI()
 
 def generate_image(prompt, model, size, quality, style, num_images=1):
     try:
-        # response = client.images.generate(
-        #     model="dall-e-3",
-        #     prompt=prompt,
-        #     size="1792x1024",
-        #     quality="hd",
-        #     n=num_images,
-        #     style="natural"
-        # )
         response = client.images.generate(
             model=model,
             prompt=prompt,
@@ -76,6 +68,25 @@ quality = quality_options[selected_quality]
 # Size selection
 selected_size = st.sidebar.selectbox("크기", list(size_options.keys()))
 size = size_options[selected_size]
+
+# AI 생성 이미지 헤더 추가 (이모지 및 스타일리시한 폰트 포함)
+st.markdown("""
+    <h1 style='text-align: center; color: #ff6347; font-family: Comic Sans MS;'>
+        🎨 AI Generated Images Gallery 🌌
+    </h1>
+    <p style='text-align: center; font-size: 20px; font-family: Comic Sans MS;'>
+        Explore the creativity of AI-generated art! ✨
+    </p>
+""", unsafe_allow_html=True)
+
+
+# Google AdSense 광고 삽입
+adsense_code = """
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9113935866619384"
+         crossorigin="anonymous"></script>
+    <!-- 여기에 추가적인 광고 스타일이나 레이아웃 코드를 포함할 수 있습니다 -->
+"""
+st.markdown(adsense_code, unsafe_allow_html=True)
 
 new_input = st.text_area("Enter your image description here:")
 
