@@ -1,3 +1,5 @@
+import logging
+
 import streamlit as st
 from io import BytesIO
 from PIL import Image as PILImage
@@ -5,6 +7,17 @@ import requests
 import base64
 from openai import OpenAI
 import os
+
+
+# 로그 파일을 저장할 디렉토리 생성
+log_directory = "logs"
+if not os.path.exists(log_directory):
+    os.makedirs(log_directory)
+
+# 로깅 설정
+log_file_path = os.path.join(log_directory, 'app.log')
+logging.basicConfig(filename=log_file_path, filemode='a', format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
 
 # CSS 스타일 정의
 st.markdown("""
@@ -38,10 +51,14 @@ def generate_image(prompt, model, size, quality, style, num_images=1):
             image = PILImage.open(BytesIO(response.content))
             return image
         else:
-            st.error("Failed to download the image.")
+            error_message = f"Failed to download the image. Status code: {response.status_code}"
+            st.error(error_message)
+            logging.error(error_message)            
             return None
     except Exception as e:
-        st.error(f"An error occurred: {e}")
+        error_message = f"An error occurred: {e}"
+        st.error(error_message)
+        logging.error(error_message, exc_info=True)
         return None
 
 def get_image_download_link(img, filename="generated_image.png", text="Download Image"):
@@ -64,21 +81,21 @@ model = st.sidebar.selectbox("Model", ["dall-e-3"], index=0)
 
 # Style selection
 # Mapping Korean options to English values
-style_options = {"자연스러운": "natural", "생생한": "vivid"}
-quality_options = {"표준": "standard", "HD": "hd"}
+style_options = {"Natural": "natural", "Vidid": "vivid"}
+quality_options = {"Standard": "standard", "HD": "hd"}
 size_options = {"1024x1024": "1024x1024", "1792x1024": "1792x1024", "1024x1792": "1024x1792"}
 
 
 # Style selection
-selected_style = st.sidebar.selectbox("스타일", list(style_options.keys()))
+selected_style = st.sidebar.selectbox("Style", list(style_options.keys()))
 style = style_options[selected_style]
 
 # Quality selection
-selected_quality = st.sidebar.selectbox("품질", list(quality_options.keys()))
+selected_quality = st.sidebar.selectbox("Quality", list(quality_options.keys()))
 quality = quality_options[selected_quality]
 
 # Size selection
-selected_size = st.sidebar.selectbox("크기", list(size_options.keys()))
+selected_size = st.sidebar.selectbox("Size", list(size_options.keys()))
 size = size_options[selected_size]
 
 # AI 생성 이미지 헤더 추가 (이모지 및 스타일리시한 폰트 포함)
@@ -90,15 +107,6 @@ st.markdown("""
         Explore the creativity of AI-generated art! ✨
     </p>
 """, unsafe_allow_html=True)
-
-
-# Google AdSense 광고 삽입
-adsense_code = """
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9113935866619384"
-         crossorigin="anonymous"></script>
-    <!-- 여기에 추가적인 광고 스타일이나 레이아웃 코드를 포함할 수 있습니다 -->
-"""
-st.markdown(adsense_code, unsafe_allow_html=True)
 
 new_input = st.text_area("Enter your image description here:")
 

@@ -16,9 +16,9 @@ Choose your preferred style, quality, and size for the image.
 Click on the "Generate Image" button and watch as the AI brings your imagination to life! ✨
 
 # ⚙️ Features
-AI-Powered Image Generation: Transform your ideas into beautiful images with just a few clicks.
-Customizable Options: Select from various styles, qualities, and sizes to personalize your image.
-Instant Downloads: Easily download and share your AI-generated creations.
+- AI-Powered Image Generation: Transform your ideas into beautiful images with just a few clicks.
+- Customizable Options: Select from various styles, qualities, and sizes to personalize your image.
+- Instant Downloads: Easily download and share your AI-generated creations.
 
 # 🛠 Built With
 Streamlit - The fastest way to build and share data apps.
