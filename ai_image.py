@@ -38,7 +38,7 @@ def generate_image(prompt, model, size, quality, style, num_images=1):
     try:
         response = client.images.generate(
             model=model,
-            prompt=prompt,
+            prompt="I NEED to test how the tool works with extremely simple prompts. DO NOT add any detail, just use it AS-IS: "+prompt,
             size=size,
             quality=quality,
             n=num_images,
@@ -49,7 +49,7 @@ def generate_image(prompt, model, size, quality, style, num_images=1):
 
         if response.status_code == 200:
             image = PILImage.open(BytesIO(response.content))
-            logging.info(f"Image successfully generated and downloaded: {image_url}")  # 로그 추가
+            logging.info(f"Image successfully generated and downloaded: {image_url}")
             return image
         else:
             error_message = f"Failed to download the image. Status code: {response.status_code}"
