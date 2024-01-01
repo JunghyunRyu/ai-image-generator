@@ -49,6 +49,7 @@ def generate_image(prompt, model, size, quality, style, num_images=1):
 
         if response.status_code == 200:
             image = PILImage.open(BytesIO(response.content))
+            logging.info(f"Image successfully generated and downloaded: {image_url}")  # 로그 추가
             return image
         else:
             error_message = f"Failed to download the image. Status code: {response.status_code}"
@@ -60,6 +61,7 @@ def generate_image(prompt, model, size, quality, style, num_images=1):
         st.error(error_message)
         logging.error(error_message, exc_info=True)
         return None
+    
 
 def get_image_download_link(img, filename="generated_image.png", text="Download Image"):
     buffered = BytesIO()
@@ -111,14 +113,15 @@ st.markdown("""
 new_input = st.text_area("Enter your image description here:")
 
 if st.button('Generate Image'):
-    st.session_state.inputs.append(new_input)
     with st.spinner('Generating image...'):
-        generated_image = generate_image(new_input,model,size,quality,style)
+        generated_image = generate_image(new_input, model, size, quality, style)
         if generated_image:
-            st.session_state.images.append(generated_image)
+            st.session_state.inputs.insert(0, new_input)
+            st.session_state.images.insert(0, generated_image)
 
 # Display all the generated images and their download links
 for idx, (inp, img) in enumerate(zip(st.session_state.inputs, st.session_state.images)):
-    st.text(f"Input {idx+1}: {inp}")
-    st.image(img, caption=f'Generated Image {idx+1}')
+    display_idx = idx + 1
+    st.text(f"Input description: {inp}")
+    st.image(img, caption=f'Generated Image {display_idx}')
     st.markdown(get_image_download_link(img), unsafe_allow_html=True)
