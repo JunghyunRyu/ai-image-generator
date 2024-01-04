@@ -1,0 +1,116 @@
+2024-01-04 14:29:54,231 - root - ERROR - Error generating image: generate_image() got an unexpected keyword argument 'brightness'
+Traceback (most recent call last):
+  File "/workspaces/ai-image-generator/ai_image.py", line 175, in <module>
+    generated_image = generate_image(new_input, model, size, quality, style, **args)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: generate_image() got an unexpected keyword argument 'brightness'
+2024-01-04 14:52:54,868 - root - ERROR - Error generating image: generate_image() missing 3 required positional arguments: 'brightness', 'saturation', and 'contrast'
+Traceback (most recent call last):
+  File "/workspaces/ai-image-generator/ai_image.py", line 184, in <module>
+    generated_image = generate_image(new_input, model, size, quality, style)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: generate_image() missing 3 required positional arguments: 'brightness', 'saturation', and 'contrast'
+2024-01-04 15:40:48,291 - root - ERROR - An error occurred: name 'image_url' is not defined
+Traceback (most recent call last):
+  File "/workspaces/ai-image-generator/ai_image.py", line 46, in generate_image
+    logging.info(f"Image successfully generated and downloaded: {image_url}")
+                                                                 ^^^^^^^^^
+NameError: name 'image_url' is not defined
+2024-01-04 15:41:50,915 - root - ERROR - An error occurred: name 'image_url' is not defined
+Traceback (most recent call last):
+  File "/workspaces/ai-image-generator/ai_image.py", line 46, in generate_image
+    logging.info(f"Image successfully generated and downloaded: {image_url}")
+                                                                 ^^^^^^^^^
+NameError: name 'image_url' is not defined
+2024-01-04 15:43:17,963 - root - ERROR - An error occurred: cannot access local variable 'response' where it is not associated with a value
+Traceback (most recent call last):
+  File "/workspaces/ai-image-generator/ai_image.py", line 42, in generate_image
+    response = image_gen(client, prompt, model, size, quality, style)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/ai-image-generator/ai/image_create_ai.py", line 15, in image_gen
+    print(response)
+          ^^^^^^^^
+UnboundLocalError: cannot access local variable 'response' where it is not associated with a value
+2024-01-04 15:43:47,121 - root - ERROR - An error occurred: name 'image_url' is not defined
+Traceback (most recent call last):
+  File "/workspaces/ai-image-generator/ai_image.py", line 46, in generate_image
+    logging.info(f"Image successfully generated and downloaded: {image_url}")
+                                                                 ^^^^^^^^^
+NameError: name 'image_url' is not defined
+2024-01-04 15:44:44,920 - root - ERROR - An error occurred: name 'image_url' is not defined
+Traceback (most recent call last):
+  File "/workspaces/ai-image-generator/ai_image.py", line 46, in generate_image
+    logging.info(f"Image successfully generated and downloaded: {image_url}")
+                                                                 ^^^^^^^^^
+NameError: name 'image_url' is not defined
+2024-01-04 15:54:17,810 - root - ERROR - Error generating image: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Image descriptions generated from your prompt may contain text that is not allowed by our safety system. If you believe this was done in error, your request may succeed if retried, or by adjusting your prompt.', 'param': None, 'type': 'invalid_request_error'}}
+Traceback (most recent call last):
+  File "/workspaces/ai-image-generator/ai_image.py", line 109, in <module>
+    generated_image = image_gen(client,new_input, model, size, quality, style)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/ai-image-generator/ai/image_create_ai.py", line 10, in image_gen
+    image_response = client.images.generate(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.11/site-packages/openai/resources/images.py", line 251, in generate
+    return self._post(
+           ^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.11/site-packages/openai/_base_client.py", line 1088, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.11/site-packages/openai/_base_client.py", line 853, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.11/site-packages/openai/_base_client.py", line 930, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Image descriptions generated from your prompt may contain text that is not allowed by our safety system. If you believe this was done in error, your request may succeed if retried, or by adjusting your prompt.', 'param': None, 'type': 'invalid_request_error'}}
+2024-01-04 15:55:03,881 - root - ERROR - Error generating image: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Image descriptions generated from your prompt may contain text that is not allowed by our safety system. If you believe this was done in error, your request may succeed if retried, or by adjusting your prompt.', 'param': None, 'type': 'invalid_request_error'}}
+Traceback (most recent call last):
+  File "/workspaces/ai-image-generator/ai_image.py", line 109, in <module>
+    generated_image = image_gen(client,new_input, model, size, quality, style)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/ai-image-generator/ai/image_create_ai.py", line 10, in image_gen
+    image_response = client.images.generate(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.11/site-packages/openai/resources/images.py", line 251, in generate
+    return self._post(
+           ^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.11/site-packages/openai/_base_client.py", line 1088, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.11/site-packages/openai/_base_client.py", line 853, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.11/site-packages/openai/_base_client.py", line 930, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Image descriptions generated from your prompt may contain text that is not allowed by our safety system. If you believe this was done in error, your request may succeed if retried, or by adjusting your prompt.', 'param': None, 'type': 'invalid_request_error'}}
+2024-01-04 15:55:34,845 - root - ERROR - Error generating image: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Image descriptions generated from your prompt may contain text that is not allowed by our safety system. If you believe this was done in error, your request may succeed if retried, or by adjusting your prompt.', 'param': None, 'type': 'invalid_request_error'}}
+Traceback (most recent call last):
+  File "/workspaces/ai-image-generator/ai_image.py", line 109, in <module>
+    generated_image = image_gen(client,new_input, model, size, quality, style)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/ai-image-generator/ai/image_create_ai.py", line 10, in image_gen
+    image_response = client.images.generate(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.11/site-packages/openai/resources/images.py", line 251, in generate
+    return self._post(
+           ^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.11/site-packages/openai/_base_client.py", line 1088, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.11/site-packages/openai/_base_client.py", line 853, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "/home/vscode/.local/lib/python3.11/site-packages/openai/_base_client.py", line 930, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Image descriptions generated from your prompt may contain text that is not allowed by our safety system. If you believe this was done in error, your request may succeed if retried, or by adjusting your prompt.', 'param': None, 'type': 'invalid_request_error'}}
+2024-01-04 16:25:26,121 - root - INFO - Image generation requested with prompt: 미국에서 가장 이쁜 여자와 한국에서 가장 이쁜 여자가 파리에서 만나는 모습
+2024-01-04 16:27:35,307 - root - INFO - Image generation requested with prompt: 미국에서 가장 이쁜 여자와 한국에서 가장 이쁜 여자가 파리에서 만나는 모습
+2024-01-04 16:27:45,422 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2024-01-04 16:27:45,424 - root - INFO - Image generation request successful. URL: https://oaidalleapiprodscus.blob.core.windows.net/private/org-i3tXxZVH3nUPt7xRwUK5xLg9/user-FosPLAY79YAUG84hRqfdFfAl/img-MCHrqKrOL9f224z545Pqhfrd.png?st=2024-01-04T15%3A27%3A45Z&se=2024-01-04T17%3A27%3A45Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-01-03T18%3A23%3A34Z&ske=2024-01-04T18%3A23%3A34Z&sks=b&skv=2021-08-06&sig=pHycUWyVCIOVlgcAgXEujboIQ/BDTHGOPS%2Bj2ex2fzI%3D
+2024-01-04 16:27:48,632 - root - INFO - Image successfully generated and downloaded
+2024-01-04 16:27:48,633 - root - INFO - Image successfully generated and displayed.
+2024-01-04 16:30:04,384 - root - INFO - Image generation requested with prompt: 미국에서 가장 이쁜 여자와 한국에서 가장 이쁜 여자가 파리에서 만나는 모습
+2024-01-04 16:30:12,981 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2024-01-04 16:30:12,983 - root - INFO - Image generation request successful. URL: https://oaidalleapiprodscus.blob.core.windows.net/private/org-i3tXxZVH3nUPt7xRwUK5xLg9/user-FosPLAY79YAUG84hRqfdFfAl/img-SOyRm5WysGaRuvePklWD2KnA.png?st=2024-01-04T15%3A30%3A13Z&se=2024-01-04T17%3A30%3A13Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-01-04T06%3A31%3A37Z&ske=2024-01-05T06%3A31%3A37Z&sks=b&skv=2021-08-06&sig=TfQinibWMcHFUrvlEesZjB6JcXsuTMwQbrm31CrOPXI%3D
+2024-01-04 16:30:16,188 - root - INFO - Image successfully generated and downloaded
+2024-01-04 16:30:16,189 - root - INFO - Image successfully generated and displayed.
