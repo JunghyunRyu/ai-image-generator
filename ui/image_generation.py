@@ -1,6 +1,6 @@
 import streamlit as st
 import logging
-from image_processor import ImageProcessor
+from ui.image_processor import ImageProcessor
 from ai.image_create_ai import image_gen
 
 def generate_and_process_image(new_input, model, size, quality, style, brightness, saturation, contrast, toggle_brightness, toggle_saturation, toggle_contrast):
